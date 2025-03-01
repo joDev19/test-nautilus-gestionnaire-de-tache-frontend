@@ -74,6 +74,7 @@ const handleSubmit = () => {
         httpClient.post("api/login", user.value)
             .then(res => {
                 Cookies.set("gestion_des_tache_is_auth", true), { expires: 1 };
+                Cookies.set("auth_name", res.data.name)
                 router.push({ 'name': "dashboard" })
             })
             .catch(err => {

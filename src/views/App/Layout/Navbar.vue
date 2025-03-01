@@ -13,14 +13,14 @@
                 class="p-3 flex justify-center gap-3 items-center sm:justify-end lg:justify-end w-1/6 sm:w-64 lg:w-full">
                 <i class="fa-solid fa-bell lg:pr-3 lg:border-r-2" style="color:#afb1af;"></i>
                 <i class="fa-solid fa-user border p-2 rounded-full" style="color:#afb1af;" id="userIcon"></i>
-                <span class="font-semibold hidden lg:block">Jordy GNANIH</span>
+                <span class="font-semibold hidden lg:block">{{ Cookies.get('auth_name') }}</span>
                 <i class="fa-solid fa-caret-down hidden lg:block" style="color:#afb1af;" id="userIconDrop"></i>
             </div>
             <div class="w-32 rounded-lg px-2 py-1 shadow-xl absolute top-14 right-3 bg-white border hidden z-2"
                 id="userSetting">
                 <ul>
                     <li class="p-1 text-sm">Your profile</li>
-                    <li class="p-1 text-sm" @click="logout">Sign out</li>
+                    <li class="p-1 text-sm hover:cursor-pointer" @click="logout">Sign out</li>
                 </ul>
             </div>
         </div>
@@ -34,8 +34,8 @@ import Cookies from 'js-cookie';
 
 const logout = () => {
     Cookies.remove("gestion_des_tache_is_auth")
+    Cookies.remove("auth_name")
     Cookies.get("XSRF-TOKEN");
-    Cookies.remove("laravel-session");
     httpClient.get('api/logout').then((res) => httpClient.get('/api/user'))
     httpClient.get('sanctum/csrf-cookie')
 
